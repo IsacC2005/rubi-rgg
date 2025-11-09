@@ -25,7 +25,7 @@ import javax.swing.JOptionPane;
 public class conexion {
     static Connection con = null;
     static String url =  "jdbc:mysql://localhost:3308/ganaderia";
-    static String user = "root";
+    static String user = "rooto";
     static String clave = "";
     static String base_datos = "";
     public static Connection conectar (){
