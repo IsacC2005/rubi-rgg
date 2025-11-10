@@ -17,12 +17,14 @@ import javax.swing.JOptionPane;
 
 import common.conexion;
 import interfaces.base_sql;
+import java.util.List;
 
 /**
  *
  * @author PERSONAL-I3
  */
-public class usuario implements base_sql{
+public class usuario implements base_sql {
+
     private Integer id;
     private Integer cedula;
     private String nombre;
@@ -33,7 +35,7 @@ public class usuario implements base_sql{
     private String color_favorito;
     private Integer id_rol;
 
-    public usuario(Integer id, Integer cedula, String nombre, String password,String confi_password, String comida_favorita, String animal_favorito, String color_favorito, Integer id_rol) {
+    public usuario(Integer id, Integer cedula, String nombre, String password, String confi_password, String comida_favorita, String animal_favorito, String color_favorito, Integer id_rol) {
         this.id = id;
         this.cedula = cedula;
         this.nombre = nombre;
@@ -46,14 +48,13 @@ public class usuario implements base_sql{
     }
 
     public usuario() {
-        
+
     }
 
     @Override
     public String toString() {
         return "usuario{" + "id=" + id + ", cedula=" + cedula + ", nombre=" + nombre + ", password=" + password + ", confi_password=" + confi_password + ", comida_favorita=" + comida_favorita + ", animal_favorito=" + animal_favorito + ", color_favorito=" + color_favorito + ", id_rol=" + id_rol + '}';
     }
-
 
     public Integer getId() {
         return id;
@@ -62,6 +63,7 @@ public class usuario implements base_sql{
     public void setId(Integer id) {
         this.id = id;
     }
+
     public Integer getCedula() {
         return cedula;
     }
@@ -110,7 +112,6 @@ public class usuario implements base_sql{
         this.animal_favorito = animal_favorito;
     }
 
-
     public String getColor_favorito() {
         return color_favorito;
     }
@@ -118,7 +119,7 @@ public class usuario implements base_sql{
     public void setColor_favorito(String color_favorito) {
         this.color_favorito = color_favorito;
     }
-    
+
     public Integer getId_rol() {
         return id_rol;
     }
@@ -126,8 +127,6 @@ public class usuario implements base_sql{
     public void setId_rol(Integer id_rol) {
         this.id_rol = id_rol;
     }
-
-    
 
     @Override
     public Integer save() {
@@ -158,21 +157,22 @@ public class usuario implements base_sql{
     public Integer update() {
         Connection con = conexion.conectar();
         PreparedStatement query2 = null;
-       try {
+        try {
             query2 = con.prepareStatement("UPDATE usuario SET password=? ,confi_password=? WHERE cedula=?");
             query2.setInt(1, this.getCedula());
             query2.setString(2, this.getPassword());
             query2.setString(3, this.getConfi_password());
-            
+
             query2.execute();
-            
+
         } catch (SQLException e) {
             conexion.errorManager(e);
-        }finally{
+        } finally {
             conexion.desconectar();
         }
         return null;
     }
+
     @Override
     public Integer delete() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -188,12 +188,12 @@ public class usuario implements base_sql{
         Connection con = conexion.conectar();
         PreparedStatement query = null;
         ResultSet rs = null;
-        
+
         try {
             query = con.prepareStatement("SELECT * FROM usuario WHERE cedula = ? ");
             query.setInt(2, cedula);
             rs = query.executeQuery();
-            
+
             if (rs.next()) {
                 this.setId(rs.getInt("id"));
                 this.setCedula(rs.getInt("cedula"));
@@ -203,18 +203,63 @@ public class usuario implements base_sql{
                 this.setComida_favorita(rs.getString("comida_favotita"));
                 this.setAnimal_favorito(rs.getString("animal_favorito"));
                 this.setColor_favorito(rs.getString("color_favorito"));
-                
+
             }
         } catch (SQLException e) {
             conexion.errorManager(e);
         } finally {
             conexion.desconectar();
         }
-        
+
     }
 
-   
-}
-    
-    
+    public List<String[]> getAllUsers() {
+        Connection con = conexion.conectar();
+        PreparedStatement query = null;
+        ResultSet rs = null;
 
+        List<String[]> users = new ArrayList<>();
+
+        try {
+            query = con.prepareStatement("SELECT * FROM usuario");
+
+            rs = query.executeQuery();
+
+            users.add(new String[]{"id", "cedula", "nombre", "password"});
+
+            while (rs.next()) {
+
+                users.add(new String[]{
+                    rs.getString("id"),
+                    rs.getString("cedula"),
+                    rs.getString("nombre"),
+                    "**********",});
+            }
+
+        } catch (SQLException e) {
+            conexion.errorManager(e);
+        } finally {
+            conexion.desconectar();
+        }
+
+        return users;
+    }
+
+    public void deleteUser(int id) {
+        System.out.println("Hola 2");
+        Connection con = conexion.conectar();
+        PreparedStatement query = null;
+
+        try {
+            query = con.prepareStatement("DELETE FROM usuario WHERE id = ?");
+            query.setInt(1, id);
+
+            query.execute();
+
+        } catch (SQLException e) {
+            conexion.errorManager(e);
+        } finally {
+            conexion.desconectar();
+        }
+    }
+}

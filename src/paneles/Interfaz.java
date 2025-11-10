@@ -21,6 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import paneles.usuarios.Users;
 
 
 
@@ -446,15 +447,16 @@ public class Interfaz extends javax.swing.JFrame{
 
     private void jButton_CusuMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_CusuMousePressed
      
+        UserFrame.setVisible(true);
        
-        Usuario p1 = new Usuario();
-        p1.setSize(750, 560);
-        p1.setLocation(0,0);
-        
-        inicial.removeAll();
-        inicial.add(p1, BorderLayout.CENTER);
-        inicial.revalidate();
-        inicial.repaint();
+//        Usuario p1 = new Usuario();
+//        p1.setSize(750, 560);
+//        p1.setLocation(0,0);
+//        
+//        inicial.removeAll();
+//        inicial.add(p1, BorderLayout.CENTER);
+//        inicial.revalidate();
+//        inicial.repaint();
     }//GEN-LAST:event_jButton_CusuMousePressed
 
     private void jButton_clinMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_clinMouseReleased
@@ -593,7 +595,9 @@ public class Interfaz extends javax.swing.JFrame{
     public javax.swing.JPanel t_sam1;
     private javax.swing.JPanel titulo;
     // End of variables declaration//GEN-END:variables
-
+    private Users UserFrame = new Users();
+    
+    
 class fondo extends JPanel {
 
      Image imag;

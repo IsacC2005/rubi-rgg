@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import models.usuario;
 import models.validar_campos;
+import paneles.usuarios.Users;
 /**
  *
  * @author User
@@ -28,6 +29,8 @@ public class Usuario extends javax.swing.JPanel {
      */
     public Usuario() {
         initComponents();
+        // UserFrame es para ver la lista de los usuarios y agregar despues algunas otras opciones
+        UserFrame = new Users();
         ojo_usua.setIcon(new ImageIcon(getClass().getResource("/imagen/ojo_cerrado.png")));
         controller = new Controller8(this);
         carga.consul_usuario(usua_bus);
@@ -93,6 +96,7 @@ public class Usuario extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         usua_bus = new javax.swing.JComboBox<>();
         ojo_usua = new javax.swing.JLabel();
+        bt_list_users = new javax.swing.JButton();
 
         setLayout(new java.awt.CardLayout());
 
@@ -141,7 +145,6 @@ public class Usuario extends javax.swing.JPanel {
         jPanel1.add(u_comi, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 140, 140, 30));
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Crear Usuario");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(-3, -4, 760, 50));
@@ -322,6 +325,14 @@ public class Usuario extends javax.swing.JPanel {
             }
         });
         jPanel1.add(ojo_usua, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 380, 50, 30));
+
+        bt_list_users.setText("Lista de Usuarios");
+        bt_list_users.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_list_usersActionPerformed(evt);
+            }
+        });
+        jPanel1.add(bt_list_users, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 480, 130, 40));
 
         add(jPanel1, "card2");
     }// </editor-fold>//GEN-END:initComponents
@@ -524,7 +535,12 @@ private void limpiarCampos() {
     }
     }//GEN-LAST:event_ojo_usuaMouseClicked
 
+    private void bt_list_usersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_list_usersActionPerformed
+        UserFrame.setVisible(true);
+    }//GEN-LAST:event_bt_list_usersActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bt_list_users;
     public javax.swing.JButton canc_U;
     public javax.swing.JButton guard_U;
     private javax.swing.JLabel jLabel1;
@@ -571,7 +587,9 @@ private void limpiarCampos() {
     private javax.swing.JTextField u_nomb;
     private javax.swing.JComboBox<String> usua_bus;
     // End of variables declaration//GEN-END:variables
-class fondo extends JPanel {
+    private Users UserFrame;
+    
+    class fondo extends JPanel {
     
 
      Image imag;

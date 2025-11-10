@@ -65,6 +65,7 @@ public class cargar_combx {
          } catch (SQLException e) {
              conexion.errorManager(e);
          }finally{
+             conexion.desconectar();
          }
         
     }
